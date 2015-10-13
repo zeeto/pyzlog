@@ -1,14 +1,15 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
 python:
-  - "2.7"
-  - "2.6"
-  - "pypy"
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+- '2.7'
+- '2.6'
+- pypy
 install: pip install -r requirements_dev.txt
-
-# command to run tests, e.g. python setup.py test
 script: python setup.py test
+deploy:
+  provider: pypi
+  user: sorabji
+  password:
+    secure: ncMxylDaNQAJEaxba+mglIsnZXZT8UO8yYxMk7AWk/6Xc1CfSYdoC8zLEaFe+zT7mSejjS9cR0OAsbC031EiAhHr9P8J6JPl1OP/6H3KiVJ80hVgRkBrcCgbh/8jEShcsK6rJa35PbgJv18f8RDQ8BGWSXTh4szflsFYHIBKnhEcF6YRQWqAMfVBzXjQPwIrl+ZzUcnMq73SUktVPmpTI01VvsGkoFzUvlz3tWsOL2ZAyju6isr3AKkGJH56lx3PJV9NAaJbtmnIUFdptjgcNVLr6Z66TJVGMOnif4SIUc7ZYY+tZ5Cqg9WzCQ8klG615LOVsLFhxZFpOOukA4Itv5jZgiIHI+/knZaYXFd0sXBK1vC327a6qM/Ee4VOwLrDTbUTNHJUhmchjUuXGQOOmOnCzj32qivJSv2jd6zwfOPU86JbZdVV8MH7FEv0tIINaYEYiA5xqtVy5mj5SREl93eQ+ujUPknCqrOfIF+WTmxgogbuju5/55yB8RSGep8Q8hXlO7wC9mCtav7Xfo9TZwNkVrGTZdnYNftlmlSte5vebnUv/DqPaCyhwlZEsScPEGMiAqQ+p5JOLaH9dZCvEu9Zn44+GKucUSEUGHesyDtxpHioHfDyh6FAyGXRsIaI1/9t6h6EyaY4WVuAA7Tyid1N1hMGyVh67Q+j48yWlIg=
+  on:
+    tags: true
+    repo: zeeto/pyzlog
