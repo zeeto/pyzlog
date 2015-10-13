@@ -10,7 +10,7 @@ Tests for `pyzlog` module.
 
 import os
 import datetime
-import unittest
+import unittest2
 import mock
 import logging
 import pyzlog
@@ -23,7 +23,7 @@ class Record(object):
         pass
 
 
-class TestJsonFormatter(unittest.TestCase):
+class TestJsonFormatter(unittest2.TestCase):
     def test_init_defaults(self):
         os.environ['HOSTNAME'] = 'localhost'
         doc = pyzlog.JsonFormatter()
@@ -53,7 +53,7 @@ class TestJsonFormatter(unittest.TestCase):
 
 
 @genty
-class TestPyzlog(unittest.TestCase):
+class TestPyzlog(unittest2.TestCase):
 
     def setUp(self):
         self.path = os.path.abspath('.')
