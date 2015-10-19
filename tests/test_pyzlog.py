@@ -18,11 +18,6 @@ import json
 from genty import genty, genty_dataset, genty_dataprovider
 
 
-class Record(object):
-    def __init__(self):
-        pass
-
-
 class TestJsonFormatter(unittest2.TestCase):
     def test_init_defaults(self):
         os.environ['HOSTNAME'] = 'localhost'
