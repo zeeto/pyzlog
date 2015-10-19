@@ -12,7 +12,6 @@ import os
 import datetime
 import unittest2
 import mock
-import logging
 import pyzlog
 import json
 from genty import genty, genty_dataset, genty_dataprovider
@@ -48,7 +47,7 @@ class TestJsonFormatter(unittest2.TestCase):
 
 
 @genty
-class TestPyzlog(unittest2.TestCase):
+class TestPyzlog(unittest2.TestCase, pyzlog.LogTest):
 
     def setUp(self):
         self.path = os.path.abspath('.')
@@ -57,24 +56,6 @@ class TestPyzlog(unittest2.TestCase):
 
     def tearDown(self):
         self.remove_log()
-
-    def remove_log(self):
-        try:
-            os.remove(os.path.abspath(os.path.join(self.path, self.target)))
-        except OSError:
-            pass
-
-    def get_log_messages(self):
-        with open(os.path.abspath(os.path.join(self.path, self.target))) as f:
-            return f.readlines()
-
-    def init_logs(self, **kwargs):
-        pyzlog.init_logs(
-            path=kwargs.get('path', self.path),
-            target=kwargs.get('target', self.target),
-            level=kwargs.get('level', logging.DEBUG),
-            server_hostname=kwargs.get('server_hostname', 'localhost'),
-            fields=kwargs.get('extra', {'extra': None}))
 
     def get_mock_now(self):
         now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')

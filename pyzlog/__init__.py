@@ -55,6 +55,82 @@ def _default_json_default(obj):
         return str(obj)
 
 
+class LogTest(object):
+    """Utility class to help testing applications that rely on pyzlog.
+
+    Intended to be a mixin for your test classes. If you don't pass path
+    and target to all the helper methods, be sure to set path and target
+    properties on your class.
+    """
+
+    def remove_log(self, path=None, target=None):
+        """remove the specified log file.
+
+        Generally called in setUp and tearDown methods to ensure
+        isolation.  If path or target are not specified, will default to
+        path and target properties on the object.
+
+        :param path: path to find the log file
+        :param target: name of the log file
+        :type path: string
+        :type target: string
+        """
+        path = path if path is not None else self.path
+        target = target if target is not None else self.target
+        try:
+            os.remove(os.path.abspath(os.path.join(path, target)))
+        except OSError:
+            pass
+
+    def get_log_messages(self, path=None, target=None):
+        """fetch all log entries in the given file
+
+        Intended to be used to assert that the expected entries were
+        written out to the correct log file. If path or target are not
+        specified, will default to path and target properties on the
+        object.
+
+        :param path: path to find the log file
+        :param target: name of the log file
+        :type path: string
+        :type target: string
+
+        """
+        path = path if path is not None else self.path
+        target = target if target is not None else self.target
+        with open(os.path.abspath(os.path.join(path, target))) as f:
+            return f.readlines()
+
+    def init_logs(self, path=None, target=None, level=None,
+                  server_hostname=None, extra=None):
+        """Simple canned way to initialize pyzlog.
+
+        Initialize pyslog for tests. If path or target are not
+        specified, will default to path and target properties on the
+        object. leve will default to logging.DEBUG, server_hostname
+        defaults to localhost, and extra defaults to {'extra': None}
+
+        :param path: path to find the log file
+        :param target: name of the log file
+        :param level: log level for this instance
+        :param server_hostname: hostname to put in each entry
+        :param extra: whitelist/defaults of extra fields to add to each entry
+        :type path: string
+        :type target: string
+        :type level: int
+        :type server_hostname: string
+        :type extra: dict
+        """
+        path = path if path is not None else self.path
+        target = target if target is not None else self.target
+        level = level if level is not None else logging.DEBUG
+        server_hostname = (server_hostname if server_hostname is not None
+                           else 'localhost')
+        extra = extra if extra is not None else {'extra': None}
+        init_logs(path=path, target=target, level=level,
+                  server_hostname=server_hostname, fields=extra)
+
+
 class JsonFormatter(logging.Formatter):
     """ JsonFormatter is used internally by the pyzlog package; you
     should never have to instantiate this yourself. Takes a
