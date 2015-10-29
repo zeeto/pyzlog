@@ -1,0 +1,11 @@
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+source /opt/rh/python27/enable
+
+export WORKON_HOME=~/Envs
+
+workon-pyzlog () {
+    source $WORKON_HOME/pyzlog/bin/activate
+}

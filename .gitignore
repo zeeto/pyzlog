@@ -41,3 +41,10 @@ output/*/index.html
 
 # Sphinx
 docs/_build
+
+# vagrant
+Vagrantparams.yml
+/provisioning/puppet/.tmp
+/provisioning/puppet/.librarian
+/provisioning/puppet/modules/
+/.vagrant/

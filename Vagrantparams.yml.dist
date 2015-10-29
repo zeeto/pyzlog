@@ -1,0 +1,8 @@
+box: centos6.4
+box_url: https://github.com/tommy-muehle/puppet-vagrant-boxes/releases/download/1.0.0/centos-6.6-x86_64.box
+guest_port: 80
+host_port: 8080
+ip: 192.168.3.2
+nfs: false
+memory: 2048
+cpus: 2
