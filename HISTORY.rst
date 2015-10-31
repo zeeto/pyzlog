@@ -7,3 +7,8 @@ History
 ---------------------
 
 * First release on PyPI.
+
+0.1.1 (2015-10-30)
+---------------------
+
+* Added a class to help make testing easier.
