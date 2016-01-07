@@ -229,7 +229,7 @@ def init_logs(path=None,
               maxBytes=1*1024*1024,
               backupCount=5,
               application_name='default',
-              server_hostname='localhost',
+              server_hostname=None,
               fields=None):
     """Initialize the zlogger.
 
