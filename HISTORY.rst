@@ -17,3 +17,8 @@ History
 ---------------------
 
 * Properly resolve hostname in log messages.
+
+0.1.3 (2016-01-07)
+---------------------
+
+* Fallback to hostname resolution in init_logs
