@@ -157,16 +157,18 @@ class JsonFormatter(logging.Formatter):
                  server_hostname=None,
                  fields=None):
         self.json_default = json_default
-        if server_hostname is None:
-            server_hostname = os.getenv('HOSTNAME')
-            if server_hostname is None:
-                server_hostname = socket.gethostname()
-            else:
-                server_hostname = 'localhost'
         self.fields = fields.copy() if fields else {}
         self.fields.update(exception=None)
-        self.defaults = {'application_name': application_name,
-                         'server_hostname': server_hostname}
+        self.defaults = {
+            'application_name': application_name,
+            'server_hostname': self.resolve_hostname(server_hostname)}
+
+    def resolve_hostname(self, server_hostname=None):
+        return filter(
+            None, [server_hostname,
+                   os.getenv('HOSTNAME'),
+                   socket.gethostname(),
+                   'localhost'])[0]
 
     def format(self, record):
         """formats a logging.Record into a standard json log entry

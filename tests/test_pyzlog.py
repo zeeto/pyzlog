@@ -9,6 +9,7 @@ Tests for `pyzlog` module.
 """
 
 import os
+import socket
 import datetime
 import unittest2
 import mock
@@ -19,17 +20,25 @@ from genty import genty, genty_dataset, genty_dataprovider
 
 class TestJsonFormatter(unittest2.TestCase):
     def test_init_defaults(self):
-        os.environ['HOSTNAME'] = 'localhost'
-        doc = pyzlog.JsonFormatter()
+        doc = pyzlog.JsonFormatter(server_hostname='localhost')
         self.assertEqual({'exception': None}, doc.fields)
         self.assertDictEqual({'application_name': 'default',
                               'server_hostname': 'localhost'},
                              doc.defaults)
+
+    def test_resolve_hostname_given(self):
+        doc = pyzlog.JsonFormatter()
+        self.assertEqual('fizzletov', doc.resolve_hostname('fizzletov'))
+
+    def test_resolve_hostname_environ(self):
+        doc = pyzlog.JsonFormatter()
+        os.environ['HOSTNAME'] = 'bazinga'
+        self.assertEqual(os.environ['HOSTNAME'], doc.resolve_hostname())
         os.environ.pop('HOSTNAME')
 
-    def test_init_hostname_socket_default(self):
+    def test_resolve_hostname_socket(self):
         doc = pyzlog.JsonFormatter()
-        self.assertEqual(os.uname()[1], doc.defaults['server_hostname'])
+        self.assertEqual(socket.gethostname(), doc.defaults['server_hostname'])
 
     def test_init(self):
         fields = {'foo': 'bar', 'baz': 'buzz'}
