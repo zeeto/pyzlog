@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='pyzlog',
-    version='0.1.1',
+    version='0.1.2',
     description="Simple python module to standardize logging for applications",
     long_description=readme + '\n\n' + history,
     url='https://github.com/zeeto/pyzlog',

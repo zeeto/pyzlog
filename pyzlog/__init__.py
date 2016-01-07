@@ -29,7 +29,7 @@ import datetime
 import functools
 
 __author__ = 'zeeto.io'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 default_date_fmt = '%Y-%m-%dT%H:%M:%S.%fZ'
 level_map = {
