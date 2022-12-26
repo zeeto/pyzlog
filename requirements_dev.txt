@@ -33,5 +33,5 @@ traceback2==1.4.0
 unittest2==1.1.0
 virtualenv==13.1.2
 watchdog==0.8.3
-wheel==0.23.0
+wheel==0.38.1
 wsgiref==0.1.2
